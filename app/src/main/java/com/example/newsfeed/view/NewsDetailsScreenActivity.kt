@@ -1,6 +1,5 @@
 package com.example.newsfeed.view
 
-import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -8,7 +7,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.newsfeed.R
 import com.example.newsfeed.databinding.ActivityNewsDetailsBinding
-import com.example.newsfeed.db.AppDataBaseManager
 import com.example.newsfeed.util.getFont
 import com.example.newsfeed.viewmodel.NewsFeedViewModel
 
@@ -34,8 +32,7 @@ class NewsDetailsScreenActivity : AppCompatActivity() {
 
 
         viewBinding.backImage.setOnClickListener {
-            
-            finish()
+            onBackPressed()
         }
 
         newsFeedViewModel.newsFeed.observe(this, Observer {
@@ -45,6 +42,11 @@ class NewsDetailsScreenActivity : AppCompatActivity() {
         })
         viewBinding.executePendingBindings()
 
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        supportFinishAfterTransition()
     }
 
 }

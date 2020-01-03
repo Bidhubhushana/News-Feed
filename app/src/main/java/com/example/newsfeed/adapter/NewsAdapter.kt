@@ -4,6 +4,8 @@ package com.example.newsfeed.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsfeed.databinding.ItemNewsBinding
 import com.example.newsfeed.db.NewsFeedModelEntity
@@ -11,7 +13,7 @@ import com.example.newsfeed.util.getFont
 import com.example.newsfeed.viewmodel.NewsFeedViewModel
 
 class NewsAdapter(
-    val context: Context,val  newsFeedViewModel: NewsFeedViewModel) :
+    val context: Context,val  newsFeedViewModel: NewsFeedViewModel, val listener: OnClick) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var newsList: MutableList<NewsFeedModelEntity>? = null
@@ -51,11 +53,15 @@ class NewsAdapter(
         holder.view.executePendingBindings()
 
         holder.view.itemCardView.setOnClickListener {
-            newsFeedViewModel.selectedFeedPosition.value=position
+            listener.onClick(holder.view.image,position)
+//            newsFeedViewModel.selectedFeedPosition.value = position
+
             //newsFeedViewModel.selectedFeedData?.value = newsList!![position]
         }
+    }
 
-
+    interface OnClick {
+        fun onClick(imageView: ImageView, position: Int)
     }
 
 }
